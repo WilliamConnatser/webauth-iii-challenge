@@ -27,7 +27,11 @@ router.post('/register', (req, res) => {
             const token = jwt.sign(response, jwtSecret, {
                 expiresIn: '1h'
             });
-            res.status(200).send(token);
+            res.status(200).send({
+                data: {
+                    token
+                }
+            });
         })
         .catch(err => {
             if (err.errno === 19) res.status(422).send({
@@ -53,7 +57,11 @@ router.post('/login', (req, res) => {
                 const token = jwt.sign(response, jwtSecret, {
                     expiresIn: '1h'
                 });
-                res.status(200).send(token);
+                res.status(200).send({
+                    data: {
+                        token
+                    }
+                });
             } else {
                 res.status(422).send({
                     message: 'Invalid credentials'
