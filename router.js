@@ -76,10 +76,9 @@ router.get('/users', auth, ({
     headers
 }, res) => {
     api.getAllUsers(headers.user.department)
-        .then(response => {
-            console.log(response)
-            res.status(200).send({
-                response
+        .then((response) => {
+            res.status(200).json({
+                users: response
             });
         })
         .catch(err => res.status(500).send({

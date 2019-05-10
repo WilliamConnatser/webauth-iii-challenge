@@ -6,7 +6,6 @@ axios
     .request
     .use(requestConfig => {
         requestConfig.headers.authorization = localStorage.getItem('token');
-        console.log(requestConfig);
         return requestConfig;
     }, error => {
         return Promise.reject(error);

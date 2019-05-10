@@ -8,9 +8,8 @@ export default class Users extends Component {
     componentDidMount() {
         axios
             .get('http://localhost:5000/api/users')
-            .then(res => {
-                console.log(res)
-                this.setState({users: res.data});
+            .then(({data}) => {
+                this.setState({users: data.users});
             })
             .catch(err => {
                 alert(err);
