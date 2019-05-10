@@ -33,21 +33,30 @@ export default class Form extends Component {
             this.loginUser();
         }
     }
-    registerUser() {
+    registerUser = _ => {
         axios
-            .put('http://localhost:5001/api/register', this.state)
+            .post('http://localhost:5000/api/register', this.state)
             .then(res => {
-                localStorage.setItem(res.data.token);
+                localStorage.setItem('token', res.data.token);
+                this
+                    .props
+                    .history
+                    .push('/');
             })
             .catch(err => {
                 alert(err.message);
             });
     }
-    loginUser() {
+    loginUser = _ => {
         axios
-            .put('http://localhost:5001/api/login', this.state)
+            .post('http://localhost:5000/api/login', this.state)
             .then(res => {
-                localStorage.setItem(res.data.token);
+                console.log(res)
+                localStorage.setItem('token', res.data.token);
+                this
+                    .props
+                    .history
+                    .push('/');
             })
             .catch(err => {
                 alert(err.message);

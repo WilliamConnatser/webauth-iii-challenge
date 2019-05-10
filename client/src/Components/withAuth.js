@@ -4,10 +4,11 @@ import axios from 'axios';
 axios
     .interceptors
     .request
-    .use(function (requestConfig) {
+    .use(requestConfig => {
         requestConfig.headers.authorization = localStorage.getItem('token');
+        console.log(requestConfig);
         return requestConfig;
-    }, function (error) {
+    }, error => {
         return Promise.reject(error);
     })
 

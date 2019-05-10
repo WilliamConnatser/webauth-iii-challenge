@@ -28,9 +28,7 @@ router.post('/register', (req, res) => {
                 expiresIn: '1h'
             });
             res.status(200).send({
-                data: {
-                    token
-                }
+                token
             });
         })
         .catch(err => {
@@ -58,9 +56,7 @@ router.post('/login', (req, res) => {
                     expiresIn: '1h'
                 });
                 res.status(200).send({
-                    data: {
-                        token
-                    }
+                    token
                 });
             } else {
                 res.status(422).send({
@@ -81,8 +77,9 @@ router.get('/users', auth, ({
 }, res) => {
     api.getAllUsers(headers.user.department)
         .then(response => {
+            console.log(response)
             res.status(200).send({
-                data: response
+                response
             });
         })
         .catch(err => res.status(500).send({
@@ -91,12 +88,12 @@ router.get('/users', auth, ({
 });
 
 function auth(req, res, next) {
-    if (req.headers.token === undefined) res.status(401).send({
+    if (req.headers.authorization === undefined) res.status(401).send({
         message: 'Log in first'
     });
 
     try {
-        const user = jwt.verify(req.headers.token, jwtSecret);
+        const user = jwt.verify(req.headers.authorization, jwtSecret);
 
         api.getUserByUsername(user.username)
             .then(response => {
